@@ -28,6 +28,66 @@ namespace 繁星推薦入學校內志願選填
             }
 
             {
+                FISCA.Permission.RoleAclSource.Instance["繁星推薦入學校內志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("606F0ED4-8575-4BF3-91D9-383CA53A6CB0", "系統設定"));
+                MotherForm.RibbonBarItems["教務作業", "繁星推薦入學校內志願選填"]["系統設定"].Enable = FISCA.Permission.UserAcl.Current["606F0ED4-8575-4BF3-91D9-383CA53A6CB0"].Executable;
+                MotherForm.RibbonBarItems["教務作業", "繁星推薦入學校內志願選填"]["系統設定"].Click += delegate
+                {
+                    new 分發設定管理().ShowDialog();
+                };
+            }
+            {
+                FISCA.Permission.RoleAclSource.Instance["繁星推薦入學校內志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("1A7CEB76-98D4-4730-B10E-CFCD592CC23E", "清除所有分發結果"));
+                MotherForm.RibbonBarItems["教務作業", "繁星推薦入學校內志願選填"]["資料重置"]["清除所有分發結果"].Enable = FISCA.Permission.UserAcl.Current["1A7CEB76-98D4-4730-B10E-CFCD592CC23E"].Executable;
+                MotherForm.RibbonBarItems["教務作業", "繁星推薦入學校內志願選填"]["資料重置"]["清除所有分發結果"].Click += delegate
+                {
+
+                    if (MsgBox.Show("本功能將會把所有學生分發結果移除，請問是否繼續?", "清除分發結果", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        List<推甄學生資料> list2 = new AccessHelper().Select<推甄學生資料>();
+                        foreach (var item in list2)
+                        {
+                            item.確定分發結果 = false;
+                            item.分發結果 = null;
+                        }
+                        list2.SaveAll();
+                    }
+                };
+            }
+            {
+                FISCA.Permission.RoleAclSource.Instance["繁星推薦入學校內志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("9E1C96F2-9048-4E20-AF9B-94E75D27A3C2", "清除所有選填志願"));
+                MotherForm.RibbonBarItems["教務作業", "繁星推薦入學校內志願選填"]["資料重置"]["清除所有選填志願"].Enable = FISCA.Permission.UserAcl.Current["9E1C96F2-9048-4E20-AF9B-94E75D27A3C2"].Executable;
+                MotherForm.RibbonBarItems["教務作業", "繁星推薦入學校內志願選填"]["資料重置"]["清除所有選填志願"].Click += delegate
+                {
+
+                    if (MsgBox.Show("本功能將會把所有學生選填志願移除，請問是否繼續?", "清除選填志願", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        List<志願> list = new AccessHelper().Select<志願>();
+                        foreach (var item in list)
+                        {
+                            item.Deleted = true;
+                        }
+                        list.SaveAll();
+                    }
+
+                };
+            }
+            {
+                FISCA.Permission.RoleAclSource.Instance["繁星推薦入學校內志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("D414FC5B-D2B4-4715-B2A3-DBA0B5BE4464", "刪除所有學生資料"));
+                MotherForm.RibbonBarItems["教務作業", "繁星推薦入學校內志願選填"]["資料重置"]["刪除所有學生資料"].Enable = FISCA.Permission.UserAcl.Current["D414FC5B-D2B4-4715-B2A3-DBA0B5BE4464"].Executable;
+                MotherForm.RibbonBarItems["教務作業", "繁星推薦入學校內志願選填"]["資料重置"]["刪除所有學生資料"].Click += delegate
+                {
+                    if (MsgBox.Show("本功能將會把所有學生資料移除，請問是否繼續?", "刪除所有學生資料", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        List<推甄學生資料> list2 = new AccessHelper().Select<推甄學生資料>();
+                        foreach (var item in list2)
+                        {
+                            item.Deleted = true;
+                        }
+                        list2.SaveAll();
+                    }
+                };
+            }
+            {
                 FISCA.Permission.RoleAclSource.Instance["繁星推薦入學校內志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("D2A76B72-F552-48C4-A2F9-273DCE5BE74F", "志願選填開放設定"));
                 MotherForm.RibbonBarItems["教務作業", "繁星推薦入學校內志願選填"]["志願選填開放設定"].Enable = FISCA.Permission.UserAcl.Current["D2A76B72-F552-48C4-A2F9-273DCE5BE74F"].Executable;
                 MotherForm.RibbonBarItems["教務作業", "繁星推薦入學校內志願選填"]["志願選填開放設定"].Click += delegate
@@ -57,66 +117,6 @@ namespace 繁星推薦入學校內志願選填
                 MotherForm.RibbonBarItems["教務作業", "繁星推薦入學校內志願選填"]["確定分發"].Click += delegate
                 {
                     new 確定分發().ShowDialog();
-                };
-            }
-            {
-                FISCA.Permission.RoleAclSource.Instance["繁星推薦入學校內志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("606F0ED4-8575-4BF3-91D9-383CA53A6CB0", "系統設定"));
-                MotherForm.RibbonBarItems["教務作業", "繁星推薦入學校內志願選填"]["系統設定"].Enable = FISCA.Permission.UserAcl.Current["606F0ED4-8575-4BF3-91D9-383CA53A6CB0"].Executable;
-                MotherForm.RibbonBarItems["教務作業", "繁星推薦入學校內志願選填"]["系統設定"].Click += delegate
-                {
-                    new 分發設定管理().ShowDialog();
-                };
-            }
-            {
-                FISCA.Permission.RoleAclSource.Instance["繁星推薦入學校內志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("1A7CEB76-98D4-4730-B10E-CFCD592CC23E", "清除所有分發結果"));
-                MotherForm.RibbonBarItems["教務作業", "繁星推薦入學校內志願選填"]["清除所有分發結果"].Enable = FISCA.Permission.UserAcl.Current["1A7CEB76-98D4-4730-B10E-CFCD592CC23E"].Executable;
-                MotherForm.RibbonBarItems["教務作業", "繁星推薦入學校內志願選填"]["清除所有分發結果"].Click += delegate
-                {
-                    
-                    if (MsgBox.Show("本功能將會把所有學生分發結果移除，請問是否繼續?", "清除分發結果", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        List<推甄學生資料> list2 = new AccessHelper().Select<推甄學生資料>();
-                        foreach (var item in list2)
-                        {
-                            item.確定分發結果 = false;
-                            item.分發結果 = null;
-                        }
-                        list2.SaveAll();
-                    }                    
-                };
-            }
-            {
-                FISCA.Permission.RoleAclSource.Instance["繁星推薦入學校內志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("9E1C96F2-9048-4E20-AF9B-94E75D27A3C2", "清除所有選填志願"));
-                MotherForm.RibbonBarItems["教務作業", "繁星推薦入學校內志願選填"]["清除所有選填志願"].Enable = FISCA.Permission.UserAcl.Current["9E1C96F2-9048-4E20-AF9B-94E75D27A3C2"].Executable;
-                MotherForm.RibbonBarItems["教務作業", "繁星推薦入學校內志願選填"]["清除所有選填志願"].Click += delegate
-                {
-
-                    if (MsgBox.Show("本功能將會把所有學生選填志願移除，請問是否繼續?", "清除選填志願", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        List<志願> list = new AccessHelper().Select<志願>();
-                        foreach (var item in list)
-                        {
-                            item.Deleted = true;
-                        }
-                        list.SaveAll();
-                    }
-                    
-                };
-            }
-            {
-                FISCA.Permission.RoleAclSource.Instance["繁星推薦入學校內志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("D414FC5B-D2B4-4715-B2A3-DBA0B5BE4464", "刪除所有學生資料"));
-                MotherForm.RibbonBarItems["教務作業", "繁星推薦入學校內志願選填"]["刪除所有學生資料"].Enable = FISCA.Permission.UserAcl.Current["D414FC5B-D2B4-4715-B2A3-DBA0B5BE4464"].Executable;
-                MotherForm.RibbonBarItems["教務作業", "繁星推薦入學校內志願選填"]["刪除所有學生資料"].Click += delegate
-                {
-                    if (MsgBox.Show("本功能將會把所有學生資料移除，請問是否繼續?", "刪除所有學生資料", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        List<推甄學生資料> list2 = new AccessHelper().Select<推甄學生資料>();
-                        foreach (var item in list2)
-                        {
-                            item.Deleted = true;
-                        }
-                        list2.SaveAll();
-                    }                
                 };
             }
             {

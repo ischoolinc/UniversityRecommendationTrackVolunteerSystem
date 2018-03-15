@@ -27,6 +27,64 @@ namespace 個人申請入學志願選填
             }
 
             {
+                FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("33A545A3-D83B-43F4-A9EF-9E48A956EB0B", "系統設定"));
+                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["系統設定"].Enable = FISCA.Permission.UserAcl.Current["33A545A3-D83B-43F4-A9EF-9E48A956EB0B"].Executable;
+                //MotherForm.StartMenu["個人申請入學志願選填"].BeginGroup = true;
+                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["系統設定"].Click += delegate
+                {
+                    new 分發設定管理().ShowDialog();
+                };
+            }
+            {
+                FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("21D6F6F2-2B4D-456C-8A62-9CACA016937F", "清除所有分發結果"));
+                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["資料重置"]["清除所有分發結果"].Enable = FISCA.Permission.UserAcl.Current["21D6F6F2-2B4D-456C-8A62-9CACA016937F"].Executable;
+                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["資料重置"]["清除所有分發結果"].Click += delegate
+                {
+                    if (MsgBox.Show("本功能將會把所有學生分發結果移除，請問是否繼續?", "清除分發結果", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        List<推甄學生資料> list2 = new AccessHelper().Select<推甄學生資料>();
+                        foreach (var item in list2)
+                        {
+                            item.確定分發結果 = false;
+                            item.分發結果 = null;
+                        }
+                        list2.SaveAll();
+                    }
+                };
+            }
+            {
+                FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("3AFF9D6D-5C2D-44B2-81E7-83636CBCFA7D", "清除所有選填志願"));
+                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["資料重置"]["清除所有選填志願"].Enable = FISCA.Permission.UserAcl.Current["3AFF9D6D-5C2D-44B2-81E7-83636CBCFA7D"].Executable;
+                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["資料重置"]["清除所有選填志願"].Click += delegate
+                {
+                    if (MsgBox.Show("本功能將會把所有學生選填志願移除，請問是否繼續?", "清除選填志願", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        List<志願> list = new AccessHelper().Select<志願>();
+                        foreach (var item in list)
+                        {
+                            item.Deleted = true;
+                        }
+                        list.SaveAll();
+                    }
+                };
+            }
+            {
+                FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("7A622A47-5D34-494E-8A60-B0A7DE479CC4", "刪除所有學生資料"));
+                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["資料重置"]["刪除所有學生資料"].Enable = FISCA.Permission.UserAcl.Current["7A622A47-5D34-494E-8A60-B0A7DE479CC4"].Executable;
+                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["資料重置"]["刪除所有學生資料"].Click += delegate
+                {
+                    if (MsgBox.Show("本功能將會把所有學生資料移除，請問是否繼續?", "刪除所有學生資料", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        List<推甄學生資料> list2 = new AccessHelper().Select<推甄學生資料>();
+                        foreach (var item in list2)
+                        {
+                            item.Deleted = true;
+                        }
+                        list2.SaveAll();
+                    }
+                };
+            }
+            {
                 FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("E79ADEB0-CCBA-48AB-AF0D-C9382E070AF3", "志願選填開放設定"));
                 MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["志願選填開放設定"].Enable = FISCA.Permission.UserAcl.Current["E79ADEB0-CCBA-48AB-AF0D-C9382E070AF3"].Executable;
                 MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["志願選填開放設定"].Click += delegate
@@ -58,64 +116,6 @@ namespace 個人申請入學志願選填
             //        new 確定分發().ShowDialog();
             //    };
             //}
-            {
-                FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("33A545A3-D83B-43F4-A9EF-9E48A956EB0B", "系統設定"));
-                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["系統設定"].Enable = FISCA.Permission.UserAcl.Current["33A545A3-D83B-43F4-A9EF-9E48A956EB0B"].Executable;
-                //MotherForm.StartMenu["個人申請入學志願選填"].BeginGroup = true;
-                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["系統設定"].Click += delegate
-                {
-                    new 分發設定管理().ShowDialog();
-                };
-            }
-            {
-                FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("21D6F6F2-2B4D-456C-8A62-9CACA016937F", "清除所有分發結果"));
-                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["清除所有分發結果"].Enable = FISCA.Permission.UserAcl.Current["21D6F6F2-2B4D-456C-8A62-9CACA016937F"].Executable;
-                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["清除所有分發結果"].Click += delegate
-                {
-                    if (MsgBox.Show("本功能將會把所有學生分發結果移除，請問是否繼續?", "清除分發結果", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        List<推甄學生資料> list2 = new AccessHelper().Select<推甄學生資料>();
-                        foreach (var item in list2)
-                        {
-                            item.確定分發結果 = false;
-                            item.分發結果 = null;
-                        }
-                        list2.SaveAll();
-                    }                    
-                };
-            }
-            {
-                FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("3AFF9D6D-5C2D-44B2-81E7-83636CBCFA7D", "清除所有選填志願"));
-                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["清除所有選填志願"].Enable = FISCA.Permission.UserAcl.Current["3AFF9D6D-5C2D-44B2-81E7-83636CBCFA7D"].Executable;
-                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["清除所有選填志願"].Click += delegate
-                {
-                    if (MsgBox.Show("本功能將會把所有學生選填志願移除，請問是否繼續?", "清除選填志願", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        List<志願> list = new AccessHelper().Select<志願>();
-                        foreach (var item in list)
-                        {
-                            item.Deleted = true;
-                        }
-                        list.SaveAll();
-                    }                    
-                };
-            }
-            {
-                FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("7A622A47-5D34-494E-8A60-B0A7DE479CC4", "刪除所有學生資料"));
-                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["刪除所有學生資料"].Enable = FISCA.Permission.UserAcl.Current["7A622A47-5D34-494E-8A60-B0A7DE479CC4"].Executable;
-                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["刪除所有學生資料"].Click += delegate
-                {
-                    if (MsgBox.Show("本功能將會把所有學生資料移除，請問是否繼續?", "刪除所有學生資料", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        List<推甄學生資料> list2 = new AccessHelper().Select<推甄學生資料>();
-                        foreach (var item in list2)
-                        {
-                            item.Deleted = true;
-                        }
-                        list2.SaveAll();
-                    }                    
-                };
-            }
             {
                 FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["學生資料項目"].Add(new FISCA.Permission.RibbonFeature("F1AD9ECF-65B5-4750-BFD3-130685A5FECD", "推甄資料"));
                 if (FISCA.Permission.UserAcl.Current["F1AD9ECF-65B5-4750-BFD3-130685A5FECD"].Executable)
