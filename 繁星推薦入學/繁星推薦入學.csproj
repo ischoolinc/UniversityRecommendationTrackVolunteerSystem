@@ -363,6 +363,7 @@
     <Content Include="Library\SmartSchool.Common.DotNetBar.xml" />
     <Content Include="Library\SmartSchool.Core.General.dll" />
     <Content Include="Library\SmartSchool.Core.General.pdb" />
+    <Content Include="Resources\sandglass_unlock_64.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

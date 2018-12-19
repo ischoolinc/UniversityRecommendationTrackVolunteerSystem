@@ -25,14 +25,80 @@ namespace 個人申請入學志願選填
                 schemaManager.SyncSchema(new 推甄學生資料());
                 schemaManager.SyncSchema(new 校系資料());
             }
-
             {
-                FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("33A545A3-D83B-43F4-A9EF-9E48A956EB0B", "系統設定"));
-                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["系統設定"].Enable = FISCA.Permission.UserAcl.Current["33A545A3-D83B-43F4-A9EF-9E48A956EB0B"].Executable;
-                //MotherForm.StartMenu["個人申請入學志願選填"].BeginGroup = true;
-                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["系統設定"].Click += delegate
+                FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("76B3BD48-309B-4C1D-803A-92413E5FD670", "選填校系管理"));
+                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["選填校系管理"].Enable = FISCA.Permission.UserAcl.Current["76B3BD48-309B-4C1D-803A-92413E5FD670"].Executable;
+                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["選填校系管理"].Click += delegate
+                {
+                    new 校系資料管理().ShowDialog();
+                };
+            }
+            {
+                FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("E79ADEB0-CCBA-48AB-AF0D-C9382E070AF3", "志願選填開放設定"));
+                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["志願選填開放設定"].Enable = FISCA.Permission.UserAcl.Current["E79ADEB0-CCBA-48AB-AF0D-C9382E070AF3"].Executable;
+                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["志願選填開放設定"].Click += delegate
                 {
                     new 分發設定管理().ShowDialog();
+                };
+            }
+            //{
+            //    FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("6C953CDC-7604-4C54-9BAF-8D7E0641FEAD", "志願分發"));
+            //    MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["志願分發"].Enable = FISCA.Permission.UserAcl.Current["6C953CDC-7604-4C54-9BAF-8D7E0641FEAD"].Executable;
+            //    MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["志願分發"].Click += delegate
+            //    {
+            //        new 志願分發().ShowDialog();
+            //    };
+            //}
+            //{
+            //    FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("56FB9D46-1269-4826-A336-B8A9E7967B9B", "確定分發"));
+            //    MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["確定分發"].Enable = FISCA.Permission.UserAcl.Current["56FB9D46-1269-4826-A336-B8A9E7967B9B"].Executable;
+            //    MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["確定分發"].Click += delegate
+            //    {
+            //        new 確定分發().ShowDialog();
+            //    };
+            //}
+            {
+                FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["學生資料項目"].Add(new FISCA.Permission.RibbonFeature("F1AD9ECF-65B5-4750-BFD3-130685A5FECD", "個人申請入學志願選填-推甄資料"));
+                if (FISCA.Permission.UserAcl.Current["F1AD9ECF-65B5-4750-BFD3-130685A5FECD"].Executable)
+                    K12.Presentation.NLDPanels.Student.AddDetailBulider<推甄資料毛毛蟲>();
+            }
+            {
+                FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["學生資料項目"].Add(new FISCA.Permission.RibbonFeature("064E2586-F9FC-47CE-B45D-35FF427C53A7", "個人申請入學志願選填-志願選填"));
+                if (FISCA.Permission.UserAcl.Current["064E2586-F9FC-47CE-B45D-35FF427C53A7"].Executable)
+                    K12.Presentation.NLDPanels.Student.AddDetailBulider<選填志願毛毛蟲>();
+            }
+
+            {
+                FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["學生功能按鈕"].Add(new FISCA.Permission.RibbonFeature("6D6E1762-C6F6-469C-B82C-316A40CCD1A9", "匯出推甄學生資料"));
+                K12.Presentation.NLDPanels.Student.RibbonBarItems["資料統計"]["匯出"]["個人申請入學志願選填"]["匯出推甄學生資料"].Enable = FISCA.Permission.UserAcl.Current["6D6E1762-C6F6-469C-B82C-316A40CCD1A9"].Executable;
+                K12.Presentation.NLDPanels.Student.RibbonBarItems["資料統計"]["匯出"]["個人申請入學志願選填"]["匯出推甄學生資料"].Click += delegate
+                {
+                    var exporter = new 匯出推甄學生資料();
+                    SmartSchool.StudentRelated.RibbonBars.Import.ExportStudentV2 wizard = new SmartSchool.StudentRelated.RibbonBars.Import.ExportStudentV2(exporter.Text, exporter.Image);
+                    exporter.InitializeExport(wizard);
+                    wizard.ShowDialog();
+                };
+            }
+            {
+                FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["學生功能按鈕"].Add(new FISCA.Permission.RibbonFeature("73F3A038-C771-46FE-8208-1BB9A6E159E6", "匯出學生選填志願"));
+                K12.Presentation.NLDPanels.Student.RibbonBarItems["資料統計"]["匯出"]["個人申請入學志願選填"]["匯出學生選填志願"].Enable = FISCA.Permission.UserAcl.Current["73F3A038-C771-46FE-8208-1BB9A6E159E6"].Executable;
+                K12.Presentation.NLDPanels.Student.RibbonBarItems["資料統計"]["匯出"]["個人申請入學志願選填"]["匯出學生選填志願"].Click += delegate
+                {
+                    var exporter = new 匯出學生選填志願();
+                    SmartSchool.StudentRelated.RibbonBars.Import.ExportStudentV2 wizard = new SmartSchool.StudentRelated.RibbonBars.Import.ExportStudentV2(exporter.Text, exporter.Image);
+                    exporter.InitializeExport(wizard);
+                    wizard.ShowDialog();
+                };
+            }
+            {
+                FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["學生功能按鈕"].Add(new FISCA.Permission.RibbonFeature("03EDC4F0-BA27-410B-B03E-701FCA36BC67", "匯入推甄學生資料"));
+                K12.Presentation.NLDPanels.Student.RibbonBarItems["資料統計"]["匯入"]["個人申請入學志願選填"]["匯入推甄學生資料"].Enable = FISCA.Permission.UserAcl.Current["03EDC4F0-BA27-410B-B03E-701FCA36BC67"].Executable;
+                K12.Presentation.NLDPanels.Student.RibbonBarItems["資料統計"]["匯入"]["個人申請入學志願選填"]["匯入推甄學生資料"].Click += delegate
+                {
+                    var exporter = new 匯入推甄學生資料();
+                    SmartSchool.StudentRelated.RibbonBars.Import.ImportStudentV2 wizard = new SmartSchool.StudentRelated.RibbonBars.Import.ImportStudentV2(exporter.Text, exporter.Image);
+                    exporter.InitializeImport(wizard);
+                    wizard.ShowDialog();
                 };
             }
             {
@@ -82,82 +148,6 @@ namespace 個人申請入學志願選填
                         }
                         list2.SaveAll();
                     }
-                };
-            }
-            {
-                FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("E79ADEB0-CCBA-48AB-AF0D-C9382E070AF3", "志願選填開放設定"));
-                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["志願選填開放設定"].Enable = FISCA.Permission.UserAcl.Current["E79ADEB0-CCBA-48AB-AF0D-C9382E070AF3"].Executable;
-                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["志願選填開放設定"].Click += delegate
-                {
-                    new 分發設定管理().ShowDialog();
-                };
-            }
-            {
-                FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("76B3BD48-309B-4C1D-803A-92413E5FD670", "推甄校系管理"));
-                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["推甄校系管理"].Enable = FISCA.Permission.UserAcl.Current["76B3BD48-309B-4C1D-803A-92413E5FD670"].Executable;
-                MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["推甄校系管理"].Click += delegate
-                {
-                    new 校系資料管理().ShowDialog();
-                };
-            }
-            //{
-            //    FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("6C953CDC-7604-4C54-9BAF-8D7E0641FEAD", "志願分發"));
-            //    MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["志願分發"].Enable = FISCA.Permission.UserAcl.Current["6C953CDC-7604-4C54-9BAF-8D7E0641FEAD"].Executable;
-            //    MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["志願分發"].Click += delegate
-            //    {
-            //        new 志願分發().ShowDialog();
-            //    };
-            //}
-            //{
-            //    FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["教務作業"].Add(new FISCA.Permission.RibbonFeature("56FB9D46-1269-4826-A336-B8A9E7967B9B", "確定分發"));
-            //    MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["確定分發"].Enable = FISCA.Permission.UserAcl.Current["56FB9D46-1269-4826-A336-B8A9E7967B9B"].Executable;
-            //    MotherForm.RibbonBarItems["教務作業", "個人申請入學志願選填"]["確定分發"].Click += delegate
-            //    {
-            //        new 確定分發().ShowDialog();
-            //    };
-            //}
-            {
-                FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["學生資料項目"].Add(new FISCA.Permission.RibbonFeature("F1AD9ECF-65B5-4750-BFD3-130685A5FECD", "推甄資料"));
-                if (FISCA.Permission.UserAcl.Current["F1AD9ECF-65B5-4750-BFD3-130685A5FECD"].Executable)
-                    K12.Presentation.NLDPanels.Student.AddDetailBulider<推甄資料毛毛蟲>();
-            }
-            {
-                FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["學生資料項目"].Add(new FISCA.Permission.RibbonFeature("064E2586-F9FC-47CE-B45D-35FF427C53A7", "選填志願"));
-                if (FISCA.Permission.UserAcl.Current["064E2586-F9FC-47CE-B45D-35FF427C53A7"].Executable)
-                    K12.Presentation.NLDPanels.Student.AddDetailBulider<選填志願毛毛蟲>();
-            }
-
-            {
-                FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["學生功能按鈕"].Add(new FISCA.Permission.RibbonFeature("6D6E1762-C6F6-469C-B82C-316A40CCD1A9", "匯出推甄學生資料"));
-                K12.Presentation.NLDPanels.Student.RibbonBarItems["資料統計"]["匯出"]["個人申請入學志願選填"]["匯出推甄學生資料"].Enable = FISCA.Permission.UserAcl.Current["6D6E1762-C6F6-469C-B82C-316A40CCD1A9"].Executable;
-                K12.Presentation.NLDPanels.Student.RibbonBarItems["資料統計"]["匯出"]["個人申請入學志願選填"]["匯出推甄學生資料"].Click += delegate
-                {
-                    var exporter = new 匯出推甄學生資料();
-                    SmartSchool.StudentRelated.RibbonBars.Import.ExportStudentV2 wizard = new SmartSchool.StudentRelated.RibbonBars.Import.ExportStudentV2(exporter.Text, exporter.Image);
-                    exporter.InitializeExport(wizard);
-                    wizard.ShowDialog();
-                };
-            }
-            {
-                FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["學生功能按鈕"].Add(new FISCA.Permission.RibbonFeature("73F3A038-C771-46FE-8208-1BB9A6E159E6", "匯出學生選填志願"));
-                K12.Presentation.NLDPanels.Student.RibbonBarItems["資料統計"]["匯出"]["個人申請入學志願選填"]["匯出學生選填志願"].Enable = FISCA.Permission.UserAcl.Current["73F3A038-C771-46FE-8208-1BB9A6E159E6"].Executable;
-                K12.Presentation.NLDPanels.Student.RibbonBarItems["資料統計"]["匯出"]["個人申請入學志願選填"]["匯出學生選填志願"].Click += delegate
-                {
-                    var exporter = new 匯出學生選填志願();
-                    SmartSchool.StudentRelated.RibbonBars.Import.ExportStudentV2 wizard = new SmartSchool.StudentRelated.RibbonBars.Import.ExportStudentV2(exporter.Text, exporter.Image);
-                    exporter.InitializeExport(wizard);
-                    wizard.ShowDialog();
-                };
-            }
-            {
-                FISCA.Permission.RoleAclSource.Instance["個人申請入學志願選填"]["學生功能按鈕"].Add(new FISCA.Permission.RibbonFeature("03EDC4F0-BA27-410B-B03E-701FCA36BC67", "匯入推甄學生資料"));
-                K12.Presentation.NLDPanels.Student.RibbonBarItems["資料統計"]["匯入"]["個人申請入學志願選填"]["匯入推甄學生資料"].Enable = FISCA.Permission.UserAcl.Current["03EDC4F0-BA27-410B-B03E-701FCA36BC67"].Executable;
-                K12.Presentation.NLDPanels.Student.RibbonBarItems["資料統計"]["匯入"]["個人申請入學志願選填"]["匯入推甄學生資料"].Click += delegate
-                {
-                    var exporter = new 匯入推甄學生資料();
-                    SmartSchool.StudentRelated.RibbonBars.Import.ImportStudentV2 wizard = new SmartSchool.StudentRelated.RibbonBars.Import.ImportStudentV2(exporter.Text, exporter.Image);
-                    exporter.InitializeImport(wizard);
-                    wizard.ShowDialog();
                 };
             }
         }
